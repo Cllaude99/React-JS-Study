@@ -1,29 +1,12 @@
-import { useState } from "react";
-import styled from "styled-components";
+import { Outlet } from "react-router-dom";
+import Header from "./components/Header";
 
 function App() {
-  const [value, setValue] = useState("");
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      currentTarget: { value },
-    } = event;
-    setValue(value);
-  };
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  };
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          placeholder="username"
-          value={value}
-          onChange={onChange}
-        />
-        <button>Log in</button>
-      </form>
-    </div>
+    <>
+      <Header />
+      <Outlet />
+    </>
   );
 }
 
