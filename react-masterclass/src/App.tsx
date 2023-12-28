@@ -1,5 +1,5 @@
-import { Outlet } from "react-router-dom";
-import { createGlobalStyle } from "styled-components";
+import { Outlet } from 'react-router-dom';
+import { createGlobalStyle } from 'styled-components';
 
 function App() {
   return (
@@ -68,5 +68,6 @@ body{
 }
 a{
   text-decoration: none;  
+  color: inherit;
 }
 `;
