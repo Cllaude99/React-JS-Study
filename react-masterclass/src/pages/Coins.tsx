@@ -22,7 +22,7 @@ const Coins = () => {
       setCoins(data?.slice(0, 100));
       setLoading(false);
     })();
-  });
+  }, []);
   return (
     <Container>
       <Header>
