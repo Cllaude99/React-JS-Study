@@ -11,20 +11,26 @@ const ToDo = ({ text, category, id }: IToDo) => {
       return newToDos;
     });
   };
-
+  const handleDelete = () => {
+    setToDos((prev) => {
+      const newToDos = prev.filter((toDo) => toDo.id !== id);
+      return newToDos;
+    });
+  };
   return (
     <>
       <li>
         <span>{text}</span>
-        {category !== Category.Doing && (
-          <button onClick={() => onClick(Category.Doing)}>Doing</button>
+        {category !== Category.DOING && (
+          <button onClick={() => onClick(Category.DOING)}>Doing</button>
         )}
         {category !== Category.TO_DO && (
           <button onClick={() => onClick(Category.TO_DO)}>To Do</button>
         )}
-        {category !== Category.Done && (
-          <button onClick={() => onClick(Category.Done)}>Done</button>
+        {category !== Category.DONE && (
+          <button onClick={() => onClick(Category.DONE)}>Done</button>
         )}
+        <button onClick={handleDelete}>Delete</button>
       </li>
     </>
   );
