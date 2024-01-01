@@ -1,6 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import ToDoList from './pages/ToDoList';
+import Selectors from './pages/Selectors';
+import KanbanBoard from './pages/KanbanBoard';
 
 export const router = createBrowserRouter([
   {
@@ -9,7 +11,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <ToDoList />,
+        element: <KanbanBoard />,
       },
     ],
   },

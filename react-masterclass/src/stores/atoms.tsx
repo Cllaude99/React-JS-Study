@@ -30,3 +30,18 @@ export const toDoSelector = selector({
     return toDos.filter((toDo) => toDo.category === category);
   },
 });
+
+export const minuteState = atom({
+  key: 'minutes',
+  default: 0,
+});
+
+export const hourSelector = selector({
+  key: 'hour',
+  get: ({ get }) => {
+    return get(minuteState) / 60;
+  },
+  set: ({ set }, newValue) => {
+    set(minuteState, Number(newValue) * 60);
+  },
+});
