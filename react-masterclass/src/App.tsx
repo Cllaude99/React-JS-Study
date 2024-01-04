@@ -64,7 +64,7 @@ body{
   font-family: 'Do Hyeon', sans-serif;
   font-family: 'Mukta', sans-serif;
   background-color: ${(props) => props.theme.bgColor};
-  color: ${(props) => props.theme.textColor};
+  color: black
 }
 a{
   text-decoration: none;  
