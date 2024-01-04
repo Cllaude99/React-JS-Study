@@ -2,7 +2,15 @@ import { atom } from 'recoil';
 
 //const { persistAtom } = recoilPersist();
 
-export const toDoState = atom({
+interface IToDoState {
+  [key: string]: string[];
+}
+
+export const toDoState = atom<IToDoState>({
   key: 'toDo',
-  default: ['a', 'b', 'c', 'd', 'e'],
+  default: {
+    to_do: ['a', 'b', 'e'],
+    doing: ['c', 'd'],
+    done: ['f'],
+  },
 });
