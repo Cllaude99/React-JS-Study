@@ -7,14 +7,28 @@ import Board from '../components/Board';
 
 const KanbanBoard = () => {
   const [toDos, setToDos] = useRecoilState(toDoState);
-  const onDragEnd = ({ draggableId, destination, source }: DropResult) => {
+  const onDragEnd = ({ destination, draggableId, source }: DropResult) => {
     if (!destination) return;
-    // setToDos((prev) => {
-    //   const updateToDos = [...prev];
-    //   updateToDos.splice(source.index, 1);
-    //   updateToDos.splice(destination.index, 0, draggableId);
-    //   return updateToDos;
-    // });
+    if (destination?.droppableId === source.droppableId) {
+      setToDos((prev) => {
+        const targetArray = [...prev[source.droppableId]];
+        targetArray.splice(source.index, 1);
+        targetArray.splice(destination.index, 0, draggableId);
+        return { ...prev, [source.droppableId]: targetArray };
+      });
+    } else {
+      setToDos((prev) => {
+        const targetArray = [...prev[source.droppableId]];
+        const addArray = [...prev[destination?.droppableId]];
+        targetArray.splice(source.index, 1);
+        addArray.splice(destination.index, 0, draggableId);
+        return {
+          ...prev,
+          [source.droppableId]: targetArray,
+          [destination.droppableId]: addArray,
+        };
+      });
+    }
   };
 
   return (
