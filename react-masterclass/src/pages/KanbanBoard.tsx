@@ -12,16 +12,18 @@ const KanbanBoard = () => {
     if (destination?.droppableId === source.droppableId) {
       setToDos((prev) => {
         const targetArray = [...prev[source.droppableId]];
+        const taskObj = targetArray[source.index];
         targetArray.splice(source.index, 1);
-        targetArray.splice(destination.index, 0, draggableId);
+        targetArray.splice(destination.index, 0, taskObj);
         return { ...prev, [source.droppableId]: targetArray };
       });
     } else {
       setToDos((prev) => {
         const targetArray = [...prev[source.droppableId]];
+        const taskObj = targetArray[source.index];
         const addArray = [...prev[destination?.droppableId]];
         targetArray.splice(source.index, 1);
-        addArray.splice(destination.index, 0, draggableId);
+        addArray.splice(destination.index, 0, taskObj);
         return {
           ...prev,
           [source.droppableId]: targetArray,

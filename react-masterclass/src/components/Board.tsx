@@ -2,7 +2,8 @@ import { Droppable } from 'react-beautiful-dnd';
 import DragabbleCard from './DragabbleCard';
 import { styled } from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { ITodo } from '../stores/atoms';
+import { ITodo, toDoState } from '../stores/atoms';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 interface IBoardProps {
   toDos: ITodo[];
@@ -17,8 +18,19 @@ interface IForm {
 }
 
 const Board = ({ toDos, boardId }: IBoardProps) => {
+  const setToDos = useSetRecoilState(toDoState);
   const { register, handleSubmit, setValue } = useForm<IForm>();
   const onValid = ({ toDo }: IForm) => {
+    const newToDo = {
+      id: Date.now(),
+      text: toDo,
+    };
+    setToDos((allBoard) => {
+      return {
+        ...allBoard,
+        [boardId]: [newToDo, ...allBoard[boardId]],
+      };
+    });
     setValue('toDo', '');
   };
   return (
@@ -87,7 +99,17 @@ const Area = styled.div<IAreaProps>`
 
 const Form = styled.form`
   width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
   input {
-    width: 100%;
+    font-size: 16px;
+    border: 0;
+    background-color: white;
+    width: 80%;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 0 auto;
   }
 `;
