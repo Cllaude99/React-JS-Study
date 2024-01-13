@@ -23,6 +23,7 @@ const Coin = () => {
       );
       setInfo(infoData);
       setPriceInfo(priceData);
+      setIsLoading(false);
     })();
   }, []);
   return (

@@ -1,7 +1,7 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { fetchCoins } from '../apis/api';
 
 interface ICoin {
   id: string;
@@ -14,25 +14,18 @@ interface ICoin {
 }
 
 const Coins = () => {
-  const [coins, setCoins] = useState<ICoin[]>([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    (async () => {
-      const { data } = await axios(`https://api.coinpaprika.com/v1/coins`);
-      setCoins(data?.slice(0, 100));
-      setLoading(false);
-    })();
-  }, []);
+  const { isLoading, data: coins } = useQuery<ICoin[]>(['coins'], fetchCoins);
+
   return (
     <Container>
       <Header>
         <Title>코인</Title>
       </Header>
-      {loading ? (
+      {isLoading ? (
         <Loader>Loading...</Loader>
       ) : (
         <CoinsList>
-          {coins.map((coin) => (
+          {coins?.map((coin) => (
             <Coin key={coin.id}>
               <Link to={`/${coin.id}`} state={{ name: coin.name }}>
                 <Img
