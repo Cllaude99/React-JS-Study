@@ -1,7 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
-import KanbanBoard from './pages/KanbanBoard';
-import Coins from './pages/Coins';
+import FramerMotion from './pages/FramerMotion';
 
 export const router = createBrowserRouter([
   {
@@ -10,7 +9,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Coins />,
+        element: <FramerMotion />,
       },
     ],
   },
