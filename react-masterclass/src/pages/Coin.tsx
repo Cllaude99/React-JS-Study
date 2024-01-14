@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { fetchCoinInfo, fetchCoinTickers } from '../apis/api';
 
 interface IInfoData {}
 interface IPriceData {}
@@ -9,28 +11,22 @@ interface IPriceData {}
 const Coin = () => {
   const { coinId } = useParams();
   const { state } = useLocation();
-  const [info, setInfo] = useState({});
-  const [priceInfo, setPriceInfo] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    (async () => {
-      const { data: infoData } = await axios(
-        `https://api.coinpaprika.com/v1/coins/${coinId}`
-      );
-      const { data: priceData } = await axios(
-        `https://api.coinpaprika.com/v1/tickers/${coinId}`
-      );
-      setInfo(infoData);
-      setPriceInfo(priceData);
-      setIsLoading(false);
-    })();
-  }, []);
+  const { isLoading: infoLoading, data: infoData } = useQuery(
+    ['info', coinId],
+    () => fetchCoinInfo(coinId!)
+  );
+  const { isLoading: tickersLoading, data: tickersData } = useQuery(
+    ['tickers', coinId],
+    () => fetchCoinTickers(coinId!)
+  );
+  const Loading = infoLoading || tickersLoading;
+
   return (
     <Container>
       <Header>
         <Title>{state.name || 'Loading...'}</Title>
-        {isLoading ? <Loader>Loading...</Loader> : null}
+        {Loading ? <Loader>Loading...</Loader> : null}
       </Header>
     </Container>
   );
