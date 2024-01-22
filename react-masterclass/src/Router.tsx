@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
-import FramerMotion from './pages/FramerMotion';
+import NetflixClone from './pages/NetflixClone';
 
 export const router = createBrowserRouter([
   {
@@ -9,7 +9,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <FramerMotion />,
+        element: <NetflixClone />,
       },
     ],
   },
