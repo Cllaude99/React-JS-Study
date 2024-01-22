@@ -1,6 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
-import NetflixClone from './pages/NetflixClone';
+import Home from './pages/NetflixClone/Home';
+import TV from './pages/NetflixClone/TV';
+import Search from './pages/NetflixClone/Search';
 
 export const router = createBrowserRouter([
   {
@@ -9,8 +11,13 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <NetflixClone />,
+        element: <Home />,
       },
+      {
+        path: '/tv',
+        element: <TV />,
+      },
+      { path: '/search', element: <Search /> },
     ],
   },
 ]);
