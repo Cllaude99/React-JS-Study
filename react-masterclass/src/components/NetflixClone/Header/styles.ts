@@ -20,6 +20,7 @@ export const Col = styled.div`
   align-items: center;
 `;
 export const Logo = styled.div`
+  cursor: pointer;
   margin-right: 50px;
   svg {
     width: 95px;

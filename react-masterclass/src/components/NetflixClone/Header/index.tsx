@@ -1,4 +1,4 @@
-import { Link, useMatch } from 'react-router-dom';
+import { Link, useMatch, useNavigate } from 'react-router-dom';
 import { ReactComponent as NetflixLogo } from '../../../assets/NetflixClone/Logo/Logo.svg';
 import { ReactComponent as SearchLogo } from '../../../assets/NetflixClone/Search.svg';
 import { useMotionValueEvent, useScroll } from 'framer-motion';
@@ -9,6 +9,7 @@ const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [scrollOver, setScrollOver] = useState(false);
   const { scrollY } = useScroll();
+  const navigate = useNavigate();
   const homeMatch = useMatch('/');
   const tvMatch = useMatch('/tv');
 
@@ -21,7 +22,7 @@ const Header = () => {
   return (
     <S.Nav scrollOver={scrollOver}>
       <S.Col>
-        <S.Logo>
+        <S.Logo onClick={() => navigate('/')}>
           <NetflixLogo />
         </S.Logo>
         <S.Items>
