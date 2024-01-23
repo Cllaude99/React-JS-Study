@@ -1,7 +1,7 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { fetchCoins } from '../apis/api';
+import { fetchCoins } from '../apis/Coins/index';
 
 interface ICoin {
   id: string;
@@ -14,8 +14,10 @@ interface ICoin {
 }
 
 const Coins = () => {
-  const { isLoading, data: coins } = useQuery<ICoin[]>(['coins'], fetchCoins);
-
+  const { isLoading, data: coins } = useQuery<ICoin[]>({
+    queryKey: ['coins'],
+    queryFn: fetchCoins,
+  });
   return (
     <Container>
       <Header>

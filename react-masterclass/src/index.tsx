@@ -1,12 +1,14 @@
-import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './theme';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './Router';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RecoilRoot } from 'recoil';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'https://www.abc.com';
 
 const queryClient = new QueryClient();
 const GlobalStyle = createGlobalStyle`
@@ -60,8 +62,9 @@ table {
 body{
   font-family: 'Do Hyeon', sans-serif;
   font-family: 'Mukta', sans-serif;
-  color: black;
+  color: ${(props) => props.theme.white.darker};
   line-height: 1.2;
+  background-color: black;
 }
 a{
   text-decoration: none;  

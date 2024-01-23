@@ -1,9 +1,7 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { fetchCoinInfo, fetchCoinTickers } from '../apis/api';
+import { fetchCoinInfo, fetchCoinTickers } from '../apis/Coins/index';
 
 interface IInfoData {}
 interface IPriceData {}
@@ -12,14 +10,14 @@ const Coin = () => {
   const { coinId } = useParams();
   const { state } = useLocation();
 
-  const { isLoading: infoLoading, data: infoData } = useQuery(
-    ['info', coinId],
-    () => fetchCoinInfo(coinId!)
-  );
-  const { isLoading: tickersLoading, data: tickersData } = useQuery(
-    ['tickers', coinId],
-    () => fetchCoinTickers(coinId!)
-  );
+  const { isLoading: infoLoading, data: infoData } = useQuery({
+    queryKey: ['info', coinId],
+    queryFn: () => fetchCoinInfo(coinId!),
+  });
+  const { isLoading: tickersLoading, data: tickersData } = useQuery({
+    queryKey: ['tickers', coinId],
+    queryFn: () => fetchCoinTickers(coinId!),
+  });
   const Loading = infoLoading || tickersLoading;
 
   return (
