@@ -1,7 +1,9 @@
 import axios from 'axios';
 
-const BASE_URL = process.env.REACT_APP_MOVIE_URL;
-const API_KEY = process.env.REACT_APP_MOVIE_API_KEY;
+export const movieInstance = axios.create({
+  baseURL: process.env.REACT_APP_MOVIE_URL,
+  headers: { Authorization: process.env.REACT_APP_MOVIE_API_KEY },
+});
 
 export interface IGetMovieResult {
   dates: Dates;
@@ -37,8 +39,6 @@ export enum OriginalLanguage {
 }
 
 export const getMovies = async () => {
-  const { data } = await axios.get(`${BASE_URL}/movie/now_playing`, {
-    headers: { Authorization: `Bearer ${API_KEY}` },
-  });
+  const { data } = await movieInstance.get(`/movie/now_playing`);
   return data;
 };
