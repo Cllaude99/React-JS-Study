@@ -67,6 +67,7 @@ export const Search = styled(motion.span)`
 export const Input = styled(motion.input)`
   transform-origin: right center;
   position: absolute;
+  top: 20px;
   right: 90px;
   padding: 5px 10px;
   padding-left: 40px;
@@ -76,3 +77,4 @@ export const Input = styled(motion.input)`
   background-color: transparent;
   border: 1px solid ${(props) => props.theme.white.lighter};
 `;
+export const Form = styled(motion.form)``;

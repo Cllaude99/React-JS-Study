@@ -37,3 +37,13 @@ export const getMovies = async () => {
   const { data } = await movieInstance.get(`/movie/now_playing`);
   return data;
 };
+
+export const findMoviesById = async (movieId: string) => {
+  const { data } = await movieInstance.get(`/movie/${movieId}`);
+  return data;
+};
+
+export const searchMovieByKeyword = async (keyword: string) => {
+  const { data } = await movieInstance.get(`/search/multi?query=${keyword}`);
+  return data;
+};

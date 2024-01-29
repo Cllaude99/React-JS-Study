@@ -4,12 +4,17 @@ import { ReactComponent as SearchLogo } from '../../../assets/NetflixClone/Searc
 import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { useState } from 'react';
 import * as S from './styles';
+import { useForm } from 'react-hook-form';
+
+interface IForm {
+  keyword: string;
+}
 
 const Header = () => {
+  const navigate = useNavigate();
   const [searchOpen, setSearchOpen] = useState(false);
   const [scrollOver, setScrollOver] = useState(false);
   const { scrollY } = useScroll();
-  const navigate = useNavigate();
   const homeMatch = useMatch('/');
   const tvMatch = useMatch('/tv');
 
@@ -18,6 +23,17 @@ const Header = () => {
     else setScrollOver(false);
   });
   const toggleSearch = () => setSearchOpen((prev) => !prev);
+  const onValid = (data: IForm) => {
+    console.log(data);
+    navigate(`/search?keyword=${data.keyword}`);
+    setValue('keyword', '');
+  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm<IForm>();
 
   return (
     <S.Nav scrollOver={scrollOver}>
@@ -46,12 +62,15 @@ const Header = () => {
         >
           <SearchLogo />
         </S.Search>
-        <S.Input
-          placeholder="search for movie or tv show"
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: searchOpen ? 1 : 0 }}
-          transition={{ type: 'linear' }}
-        />
+        <S.Form onSubmit={handleSubmit(onValid)}>
+          <S.Input
+            {...register('keyword', { required: true, minLength: 2 })}
+            placeholder="search for movie or tv show"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: searchOpen ? 1 : 0 }}
+            transition={{ type: 'linear' }}
+          />
+        </S.Form>
       </S.Col>
     </S.Nav>
   );
